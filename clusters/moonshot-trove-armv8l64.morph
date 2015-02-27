@@ -1,0 +1,33 @@
+name: moonshot-m400-armv8l64-trove
+kind: cluster
+description: |
+  Deploy an armv8l64 Trove server into a HP Moonshot node
+
+  The system will be configured to boot through PXE from existing DHCP,
+  TFTP and NFS servers.
+systems:
+- morph: systems/trove-system-armv8l64-moonshot.morph
+  deploy:
+    netboot:
+      type: pxeboot
+      location: 14:58:d0:58:60:52
+      PXEBOOT_MODE: existing-server
+      PXEBOOT_CONFIG_TFTP_ADDRESS: sftp://192.168.0.1/srv/nfsboot/tftp/
+      PXEBOOT_ROOTFS_RSYNC_ADDRESS: rsync://192.168.0.1/srv/nfsboot/
+      KERNEL_ARGS: console=ttyS0,9600n8r rw
+      DTB_PATH: boot/m400-1003.dtb
+      HOSTNAME: trove-m400-node24
+      MOONSHOT_KERNEL: yes
+      INSTALL_FILES: moonshot/manifest
+      INSTALLER: no
+      FSTAB_HOMES: /dev/sda2 /home auto defaults,noatime,rw 0 2
+      TROVE_ID: trove_moonshot
+      TROVE_COMPANY: codethink
+      LORRY_SSH_KEY: /src/src/ssh_keys/lorry.key
+      LORRY_SSH_PUBKEY: /src/src/ssh_keys/lorry.key.pub
+      UPSTREAM_TROVE: git.baserock.org
+      TROVE_ADMIN_USER: c24n1
+      TROVE_ADMIN_EMAIL: c24n1@codethink.co.uk
+      TROVE_ADMIN_NAME: Adminuser
+      TROVE_ADMIN_SSH_PUBKEY: /src/src/ssh_keys/id_rsa.pub
+      WORKER_SSH_PUBKEY: /src/src/ssh_keys/worker.key.pub
