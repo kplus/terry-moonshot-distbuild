@@ -1,0 +1,43 @@
+name: trove-system-armv8l64-moonshot
+kind: system
+description: Trove server
+arch: armv8l64
+strata:
+- name: build-essential
+  morph: strata/build-essential.morph
+- name: bsp-armv8l64-generic
+  morph: strata/bsp-armv8l64-generic.morph
+- name: foundation
+  morph: strata/foundation.morph
+- name: core
+  morph: strata/core.morph
+- name: python-core
+  morph: strata/python-core.morph
+- name: tools
+  morph: strata/tools.morph
+- name: morph-utils
+  morph: strata/morph-utils.morph
+- name: pcre-utils
+  morph: strata/pcre-utils.morph
+- name: lorry
+  morph: strata/lorry.morph
+- name: trove
+  morph: strata/trove.morph
+- name: lighttpd-server
+  morph: strata/lighttpd-server.morph
+- name: nfs
+  morph: strata/nfs.morph
+- name: ansible
+  morph: strata/ansible.morph
+- name: cloudinit-support
+  morph: strata/cloudinit-support.morph
+- name: devtools
+  morph: strata/devtools.morph
+configuration-extensions:
+- set-hostname
+- trove
+- nfsboot-server
+- fstab
+- install-files
+- cloud-init
+- moonshot-kernel

@@ -2,7 +2,7 @@ name: ansible
 kind: stratum
 description: A stratum with ansible and its dependencies
 build-depends:
-- morph: strata/core.morph
+- morph: strata/python-core.morph
 chunks:
 - name: paramiko
   repo: upstream:paramiko
@@ -11,8 +11,8 @@ chunks:
   build-depends: []
 - name: markupsafe
   repo: upstream:markupsafe
-  ref: 58cde05bdcb0a53d87213b4a5bb605937f178171
-  unpetrify-ref: baserock/morph
+  ref: terry/moonshot-distbuild
+  unpetrify-ref: 58cde05bdcb0a53d87213b4a5bb605937f178171
   build-depends: []
 - name: jinja2
   repo: upstream:jinja2
