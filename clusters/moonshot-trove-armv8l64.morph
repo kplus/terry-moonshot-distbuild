@@ -25,7 +25,6 @@ systems:
       TROVE_COMPANY: codethink
       LORRY_SSH_KEY: /src/src/ssh_keys/lorry.key
       LORRY_SSH_PUBKEY: /src/src/ssh_keys/lorry.key.pub
-      UPSTREAM_TROVE: git.baserock.org
       TROVE_ADMIN_USER: c24n1
       TROVE_ADMIN_EMAIL: c24n1@codethink.co.uk
       TROVE_ADMIN_NAME: Adminuser
