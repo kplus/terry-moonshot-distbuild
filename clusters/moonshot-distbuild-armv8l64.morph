@@ -1,0 +1,49 @@
+name: moonshot-distbuild-armv8l64
+kind: cluster
+description: |
+  Deploy a distbuild network onto HP Moonshot node.
+
+  The distbuild network will contain one controller node and five worker nodes.
+systems:
+- morph: systems/build-system-armv8l64.morph
+  deploy-defaults:
+    CONTROLLERHOST: controller
+    DISTBUILD_CONTROLLER: false
+    DISTBUILD_WORKER: true
+    PXEBOOT_MODE: existing-server                                    
+    PXEBOOT_CONFIG_TFTP_ADDRESS: sftp://192.168.0.1/srv/nfsboot/tftp/
+    PXEBOOT_ROOTFS_RSYNC_ADDRESS: rsync://192.168.0.1/srv/nfsboot/   
+    KERNEL_ARGS: console=ttyS0,9600n8r rw                            
+    DTB_PATH: boot/m400-1003.dtb                                  
+    MOONSHOT_KERNEL: yes        
+    FSTAB_SRC: /dev/sda2 /srv/distbuild auto defaults,rw,noatime 0 2
+    INSTALL_FILES: "moonshot/manifest distbuild/manifest"
+    INSTALLER: no
+    TROVE_ID: trove_moonshot
+    TROVE_HOST: 192.168.0.103
+    WORKER_SSH_KEY: /src/src/ssh_keys/worker.key
+    WORKER_SSH_PUBKEY: /src/src/ssh_keys/worker.key.pub
+  deploy:
+    build-controller:
+      type: pxeboot
+      location: 14:58:d0:57:ef:62
+      DISTBUILD_CONTROLLER: true
+      DISTBUILD_WORKER: false
+      HOSTNAME: controller
+      WORKERS: worker0, worker1, worker2, worker3
+    build-node-26:
+      type: pxeboot
+      location: 14:58:d0:57:af:f2
+      HOSTNAME: worker0
+    build-node-27:
+      type: pxeboot
+      location: 14:58:d0:58:60:62
+      HOSTNAME: worker1
+    build-node-28:
+      type: pxeboot
+      location: 14:58:d0:58:20:12
+      HOSTNAME: worker2
+    build-node-29:
+      type: pxeboot
+      location: 14:58:d0:57:6f:f2
+      HOSTNAME: worker3
